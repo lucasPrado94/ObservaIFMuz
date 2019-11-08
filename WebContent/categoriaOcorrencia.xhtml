@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition template="_template.xhtml">
+		<ui:define name="titulo_pagina">
+Cadastro de Categoria de Ocorrência
+</ui:define>
+		<ui:define name="formulario">
+			<h:form>
+				<legend>Nova Categoria de Ocorrência</legend>
+				<h:outputLabel value="Nome da Categoria" for="nome" />
+				<h:inputText class="form-control" id="nome"
+					value="#{categoriaOcorrenciaController.cat.nomeCategoria}" />
+
+				<h:commandButton class="btn btn-success mt-3" value="Gravar"
+					action="#{categoriaOcorrenciaController.gravar}" />
+			</h:form>
+		</ui:define>
+		<ui:define name="tabela">
+			<h:form>
+				<h:dataTable class="table table-hover"
+					value="#{categoriaOcorrenciaController.todasCategorias}" var="categoria">
+
+					<h:column>
+						<f:facet name="header">Nome Categoria</f:facet>
+						<h:outputText value="#{categoria.nomeCategoria}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Remover</f:facet>
+						<h:commandLink class="btn btn-danger" value="Remover"
+							action="#{categoriaOcorrenciaController.remover(categoria)}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Alterar</f:facet>
+						<h:commandLink class="btn btn-warning" value="Alterar"
+							action="#{categoriaOcorrenciaController.carregar(categoria)}" />
+					</h:column>
+
+				</h:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

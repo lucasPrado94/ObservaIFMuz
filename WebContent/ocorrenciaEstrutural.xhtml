@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+</h:head>
+<body>
+	<ui:composition template="_template.xhtml">
+		<ui:define name="titulo_pagina">
+Cadastro de Ocorrência Estrutural
+</ui:define>
+		<ui:define name="formulario">
+			<h:form>
+				<legend>Nova Ocorrência Estrutural</legend>
+				<h:outputLabel value="Nome" for="nome" />
+				<h:inputText class="form-control" id="nome"
+					value="#{pessoaController.pessoa.nomePessoa}" />
+
+				<h:outputLabel value="CPF" for="cpf" />
+				<h:inputText class="form-control" id="cpf"
+					value="#{pessoaController.pessoa.cpf}" />
+
+				<h:outputLabel value="Sexo" for="sexo" />
+				<h:selectOneMenu class="form-control" id="sexo"
+					value="#{pessoaController.idSexo}">
+					<f:selectItem itemLabel="Selecione um Sexo"
+						noSelectionOption="true" />
+					<f:selectItems value="#{pessoaController.todosSexos}" var="sex"
+						itemLabel="#{sex.sexo}" itemValue="#{sex.idSexo}" />
+				</h:selectOneMenu>
+
+				<h:outputLabel value="Logradouro" for="logradouro" />
+				<h:inputText class="form-control" id="logradouro"
+					value="#{pessoaController.pessoa.logradouro}" />
+
+				<h:outputLabel value="Número" for="num" />
+				<h:inputText class="form-control" id="num"
+					value="#{pessoaController.pessoa.numeroLogradouro}" />
+
+				<h:outputLabel value="Bairro" for="bairro" />
+				<h:inputText class="form-control" id="bairro"
+					value="#{pessoaController.pessoa.bairro}" />
+
+				<h:outputLabel value="Cidade" for="cidade" />
+				<h:selectOneMenu class="form-control" id="cidade"
+					value="#{pessoaController.idCidade}">
+					<f:selectItem itemLabel="Selecione uma Cidade"
+						noSelectionOption="true" />
+					<f:selectItems value="#{pessoaController.todasCidades}" var="cid"
+						itemLabel="#{cid.nomeCidade}" itemValue="#{cid.idCidade}" />
+				</h:selectOneMenu>
+
+				<h:outputLabel value="Tipo de Pessoa" for="tipoPessoa" />
+				<h:selectOneMenu class="form-control" id="tipoPessoa"
+					value="#{pessoaController.idTipo}">
+					<f:selectItem itemLabel="Selecione um Tipo"
+						noSelectionOption="true" />
+					<f:selectItems value="#{pessoaController.todosTiposPessoa}" var="t"
+						itemLabel="#{t.nomeTipo}" itemValue="#{t.idTipo}" />
+				</h:selectOneMenu>
+
+				<h:outputLabel value="Função" for="funcao" />
+				<h:selectOneMenu class="form-control" id="funcao"
+					value="#{pessoaController.idFuncao}">
+					<f:selectItem itemLabel="Selecione uma Função"
+						noSelectionOption="true" />
+					<f:selectItems value="#{pessoaController.todasFuncoes}" var="f"
+						itemLabel="#{f.nomeFuncao}" itemValue="#{f.idFuncao}" />
+				</h:selectOneMenu>
+
+				<h:outputLabel value="Telefone" for="telefone" />
+				<h:inputText class="form-control" id="telefone"
+					value="#{pessoaController.pessoa.telefone}" />
+
+				<h:outputLabel value="E-Mail" for="email" />
+				<h:inputText type="email" class="form-control"
+					aria-describedby="emailHelp" id="email"
+					value="#{pessoaController.pessoa.email}" />
+				<small id="emailHelp" class="form-text text-muted">Jamais
+					compartilharemos suas informações pessoais.</small>
+
+				<h:outputLabel value="Senha" for="senha" />
+				<h:inputText class="form-control" id="senha"
+					value="#{pessoaController.pessoa.senha}">
+						<f:passThroughAttribute name="type" value="password"></f:passThroughAttribute>
+					</h:inputText>
+
+				<h:commandButton class="btn btn-success mt-3" value="Gravar"
+					action="#{pessoaController.gravar}" />
+			</h:form>
+		</ui:define>
+		<ui:define name="tabela">
+			<h:form>
+				<h:dataTable class="table table-hover"
+					value="#{pessoaController.todasPessoas}" var="pessoa">
+					<h:column>
+						<f:facet name="header">Nome</f:facet>
+						<h:outputText value="#{pessoa.nomePessoa}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Cidade</f:facet>
+						<h:outputText value="#{pessoa.cidade.nomeCidade}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Tipo de Pessoa</f:facet>
+						<h:outputText value="#{pessoa.tipo.nomeTipo}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Função</f:facet>
+						<h:outputText value="#{pessoa.funcao.nomeFuncao}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Remover</f:facet>
+						<h:commandLink class="btn btn-danger" value="Remover"
+							action="#{pessoaController.remover(pessoa)}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Alterar</f:facet>
+						<h:commandLink class="btn btn-warning" value="Alterar"
+							action="#{pessoaController.carregar(pessoa)}" />
+					</h:column>
+
+				</h:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>
